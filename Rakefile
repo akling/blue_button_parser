@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "blue_button_parser"
   gem.homepage = "http://github.com/jcole@patientslikeme.com/blue_button_parser"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Converts a BlueButton free text data file to a structured data Hash}
+  gem.description = %Q{BlueButton text parser}
   gem.email = "jcole@patientslikeme.com"
   gem.authors = ["Jeff Cole"]
   # dependencies defined in Gemfile
