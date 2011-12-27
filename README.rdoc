@@ -10,7 +10,7 @@ BlueButtonParser was created by reverse-engineering the one
 {sample data file provided by the VA}[http://www.va.gov/BLUEBUTTON/docs/VA_My_HealtheVet_Blue_Button_Sample_Version_12_All_Data.txt] 
 and creating some ad-hoc rules for how to parse the document.  BlueButtonParser will attempt to find all the sections in the file,  all the key-value pairs within that section, and even find collections of items within a section when applicable (e.g. the array of facilities in the section "TREATMENT FACILITIES").
 
-<b>Example free text data</b>
+<b>Example free text data</b> ({see full text}[https://github.com/patientslikeme/blue_button_parser/blob/master/test/data/blue_button_example_data.txt])
 
   ----------------------------- DEMOGRAPHICS ----------------------------
 
@@ -29,7 +29,7 @@ and creating some ad-hoc rules for how to parse the document.  BlueButtonParser 
   Marital Status: Married
   Current Occupation: Truck Driver
 
-<b>Example parsed data (JSON)</b>
+<b>Example parsed data (JSON)</b> ({see full output}[https://github.com/patientslikeme/blue_button_parser/blob/master/test/data/expected_json_output.js])
   
   "DEMOGRAPHICS": {
     "Source": "Self-Entered",
