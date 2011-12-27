@@ -1,8 +1,104 @@
-= blue_button_parser
+= BlueButtonParser
 
-Description goes here.
+BlueButtonParser parses a BlueButton free-text personal health data file and translates it into a structured hash suitable for computational purposes.
 
-== Contributing to blue_button_parser
+BlueButton[http://www.va.gov/bluebutton/] is the initiative from the U.S. Department of Veterans Affairs
+to allow veterans to download their information from the "My HealtheVet" personal health record
+into a very simple text file.   Because this file was meant to be human readable, not computationally readable, the file contains almost no markup or delimiters for sections, keys, or values.
+
+BlueButtonParser was created by reverse-engineering the one 
+{sample data file provided by the VA}[http://www.va.gov/BLUEBUTTON/docs/VA_My_HealtheVet_Blue_Button_Sample_Version_12_All_Data.txt] 
+and creating some ad-hoc rules for how to parse the document.  BlueButtonParser will attempt to find all the sections in the file,  all the key-value pairs within that section, and even find collections of items within a section when applicable (e.g. the array of facilities in the section "TREATMENT FACILITIES").
+
+<b>Example free text data</b>
+
+  ----------------------------- DEMOGRAPHICS ----------------------------
+
+  Source: Self-Entered
+
+  First Name: ONE
+  Middle Initial: A
+  Last Name: MHVVETERAN
+  Suffix: 
+  Alias: MHVVET
+  Relationship to VA: Patient, Veteran, Employee
+
+  Gender: Male   Blood Type: AB+         Organ Donor: Yes
+
+  Date of Birth: 01 Mar 1948
+  Marital Status: Married
+  Current Occupation: Truck Driver
+
+<b>Example parsed data (JSON)</b>
+  
+  "DEMOGRAPHICS": {
+    "Source": "Self-Entered",
+    "First Name": "ONE",
+    "Middle Initial": "A",
+    "Last Name": "MHVVETERAN",
+    "Suffix": null,
+    "Alias": "MHVVET",
+    "Relationship to VA": "Patient, Veteran, Employee",
+    "Gender": "Male",
+    "Blood Type": "AB+",
+    "Organ Donor": "Yes",
+    "Date of Birth": "01 Mar 1948",
+    "Marital Status": "Married",
+    "Current Occupation": "Truck Driver"
+  }
+
+== Install
+
+  sudo gem install blue_button_parser
+
+== Usage
+  require 'blue_button_parser'
+
+  # parse your downloaded BlueButton data file
+  my_bb_file = File.read("test/data/blue_button_example_data.txt")
+  bbp = BlueButtonParser.new(my_bb_file)
+
+  # access the parsed data as a Hash
+  parsed_data_hash = bbp.data
+
+  # example: to see the list of sections parsed:
+  parsed_data_hash.keys
+  # => ["MY HEALTHEVET ACCOUNT SUMMARY", "VITALS AND READINGS", "HEALTH INSURANCE", ... ]
+
+  # example: to acccess the "MY HEALTHEVET ACCOUNT SUMMARY" section:
+  summary = parsed_data_hash["MY HEALTHEVET ACCOUNT SUMMARY"]
+  # => {"Authentication Facility Name"=>"SLC10 TEST LAB", "Authentication Date"=>"19 Aug 2010", ... }
+    
+= Caveats
+
+BlueButtonParser was reverse engineered based on the single sample data file provided by the VA (latest version: v12, 02 Dec 2011).  Because there are no rules as to how the document should be formatted, 
+
+* A later version of the BlueButton output could break the parser
+* An instance of BlueButton output for a second patient might have slightly different formatting--for example, line-wrapped values for fields that were not wrapped in the current reference file, or new fields that were not applicable to the patient in the current reference file
+* As new sections get added, there is no guarantee that they will conform to the formatting for other sections
+
+To keep the BlueButtonParser up-to-date, the test data file (test/data/blue_button_example_data.txt) and expect parsed output (test/data/expected_json_output.js) should be updated every time a new version of the BlueButtonData file is released.   
+
+Note however that as far as I know, there is no formal notification that a new version of the sample data file has been released, so I guess developers will just need to be vigilant. :)
+
+After updates, make sure the tests still work and any applicable new tests get added.
+
+= Prior work
+
+Somebody took a stab at this in the past:
+http://rest-developer-edition.na8.force.com/BlueConverter
+
+I believe the code for this example is found here:
+https://github.com/joshbirk/BlueConverter
+
+BlueConverter great first pass implementation, but it needs a few corrections:
+
+* it doesn't deal with multiple key-values on single line, e.g. "Gender: Male  Blood Type: AB+  Organ Donor: Yes"
+* it doesn't deal with values that wrap lines
+* it doesn't recognize that some of the key-values in a section should be grouped into a collection of items, e.g. in the "TREATMENT FACILITIES" section is actually comprised of a series of facilities
+* it doesn't parse the tables, e.g. the "VA Treating Facility" in the "MY HEALTHEVET ACCOUNT SUMMARY"
+
+== Contributing to BlueButtonParser
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -14,6 +110,5 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Jeff Cole. See LICENSE.txt for
-further details.
+Copyright (c) 2012 PatientsLikeMe. See LICENSE.txt for further details.
 

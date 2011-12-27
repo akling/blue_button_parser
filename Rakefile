@@ -15,12 +15,12 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "blue_button_parser"
-  gem.homepage = "http://github.com/jcole@patientslikeme.com/blue_button_parser"
+  gem.homepage = "http://github.com/patientslikeme/blue_button_parser"
   gem.license = "MIT"
   gem.summary = %Q{Converts a BlueButton free text data file to a structured data Hash}
-  gem.description = %Q{BlueButton text parser}
-  gem.email = "jcole@patientslikeme.com"
-  gem.authors = ["Jeff Cole"]
+  gem.description = %Q{Converts a BlueButton free text data file to a structured data Hash}
+  gem.email = "open_source@patientslikeme.com"
+  gem.authors = ["PatientsLikeMe"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

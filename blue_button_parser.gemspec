@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{blue_button_parser}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Jeff Cole"]
-  s.date = %q{2011-12-21}
-  s.description = %q{BlueButton text parser}
-  s.email = %q{jcole@patientslikeme.com}
+  s.authors = ["PatientsLikeMe"]
+  s.date = %q{2011-12-22}
+  s.description = %q{Converts a BlueButton free text data file to a structured data Hash}
+  s.email = %q{open_source@patientslikeme.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -19,15 +19,19 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "blue_button_parser.gemspec",
     "lib/blue_button_parser.rb",
+    "test/data/blue_button_example_data.txt",
+    "test/data/expected_json_output.js",
     "test/helper.rb",
     "test/test_blue_button_parser.rb"
   ]
-  s.homepage = %q{http://github.com/jcole@patientslikeme.com/blue_button_parser}
+  s.homepage = %q{http://github.com/patientslikeme/blue_button_parser}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.4.1}
