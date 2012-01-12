@@ -1,12 +1,11 @@
 = BlueButtonParser
 
-BlueButtonParser parses a BlueButton free-text personal health data file and translates it into a structured hash suitable for computational purposes.
+BlueButtonParser is a Ruby library to parse the free-text personal health data export from the VA's MyHealthEVet portal into a Ruby hash.
 
 BlueButton[http://www.va.gov/bluebutton/] is the initiative from the U.S. Department of Veterans Affairs
-to allow veterans to download their information from the "My HealtheVet" personal health record
-into a very simple text file.   Because this file was meant to be human readable, not computationally readable, the file contains almost no markup or delimiters for sections, keys, or values.
+to convince personal health record providers to let users download their data.  They have implemented the BlueButton initiative on their own MyHealthEVet portal by allowing their usres to export their data in a a human-readable free text file. However, this text file is not computationally readable: it contains almost no markup or delimiters for sections, keys, or values.
 
-BlueButtonParser was created by reverse-engineering the one 
+This BlueButtonParser library was created by reverse-engineering the one 
 {sample data file provided by the VA}[http://www.va.gov/BLUEBUTTON/docs/VA_My_HealtheVet_Blue_Button_Sample_Version_12_All_Data.txt] 
 and creating some ad-hoc rules for how to parse the document.  BlueButtonParser will attempt to find all the sections in the file,  all the key-value pairs within that section, and even find collections of items within a section when applicable (e.g. the array of facilities in the section "TREATMENT FACILITIES").
 
